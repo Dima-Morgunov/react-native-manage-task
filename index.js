@@ -8,6 +8,7 @@ import ManageContact from './component/ManageContract'
 import ManageLicense from './component/ManageLicense'
 import ManagePeople from './component/ManagePeople'
 import UserCard from './conteiners/UserCard'
+import UserDetailCard from './conteiners/UserDetailCard'
 
 const window = Dimensions.get('window')
 
@@ -16,7 +17,8 @@ export const IMAGE_HEIGHT_SMALL = window.width /7;
 
 const People = createStackNavigator({
         ManagePeople: {screen: ManagePeople},
-        UserCard: {screen: UserCard}
+        UserCard: {screen: UserCard},
+        UserDetailCard: {screen: UserDetailCard}
 },{
     navigationOptions:{
         headerStyle:{

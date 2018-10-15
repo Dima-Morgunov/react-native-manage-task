@@ -1,27 +1,33 @@
 import React from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
-
-import UserCard from '../conteiners/UserCard'
-import {styles} from "../style/styles";
+import { View, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import {List, ListItem} from 'react-native-elements'
 
 export default class ManagePeople extends React.Component {
     static navigationOptions = {
             title: 'Manage people',
     }
-    viewCity = (city) =>{
-        this.props.navigation.navigate('City', { city })
+    viewCity = (user) =>{
+        this.props.navigation.navigate('UserCard', { user })
     }
     render() {
         return (
             <View style={{flex: 1}}>
-                <Text style={{flex: 1}}>ManagePeople</Text>
-                <TouchableWithoutFeedback
-                    onPress={()=> this.viewCity()}>
-                    <View>
-                        <Text style={styles.city}>{city.city}</Text>
-                        <Text style={styles.country}>{city.country}</Text>
-                    </View>
-                </TouchableWithoutFeedback>
+                <ScrollView>
+                <List containerStyle={{marginBottom: 20}}>
+                    {this.props.screenProps.users.map((item) => (
+                            <TouchableWithoutFeedback onPress={()=> this.viewCity(item)} key={item.id}>
+                            <ListItem
+                                roundAvatar
+                                avatar={{uri:item.avatar}}
+                                key={item.id}
+                                title={item.name}
+                                subtitle={item.position}
+                            />
+                            </TouchableWithoutFeedback>
+                        ))
+                    }
+                </List>
+                </ScrollView>
             </View>
         );
     }
