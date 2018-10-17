@@ -18,7 +18,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'Поисковые системы оценивают качество и релевантность статьи по содержащимся в ней словам и словосочетаниям (коллокациям). Чем больше в тексте тематичных ключевых фраз, тем больше шансов, что он получит высокую оценку'
+
 
             },{
                 name: 'Mari',
@@ -117,14 +118,62 @@ export default class App extends React.Component {
                 position: 'CEO',
                 description:''
             }
+        ],
+        contracts: [{
+            name: 'Create new page',
+            members:[],
+            id: 1,
+            image:'',
+            description: '',
+            startTime: '',
+            endTime: '',
+            active: false
+        },
+            {
+                name: 'Create second page',
+                members:[],
+                id: 2,
+                image:'',
+                description: '',
+                startTime: '',
+                endTime: '',
+                active: false
+            },
+            {
+                name: 'Create end page',
+                members:[],
+                id: 3,
+                image:'',
+                description: '',
+                startTime: '',
+                endTime: '',
+                active: false
+            },
         ]
     }
+
+    addNewContract = (newContracts) => {
+        this.setState({
+            contracts: newContracts
+        })
+    }
+
+    changeInput = (key, value) =>{
+        this.setState({
+            [key]: value
+        })
+    }
+
   render() {
     return (
         <Tabs
           screenProps={{
                 users: this.state.users,
-                user: this.state.user
+                user: this.state.user,
+                contracts: this.state.contracts,
+                createNewContract: this.state.createNewContract,
+                changeInput: this.changeInput,
+                addNewContract: this.addNewContract
           }}
         />
     );

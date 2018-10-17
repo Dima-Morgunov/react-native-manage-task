@@ -31,6 +31,8 @@ export default class UserCard extends React.Component {
                             <Text>free</Text>
                         </View>
                     }
+                    <Text>Description: </Text>
+                    <Text style={{width: '100%', paddingBottom: 50}}>{user.description}</Text>
                     <Icon containerStyle={{position: 'absolute', right: 0, bottom: 0}}  color='blue' onPress={()=>this.showMore( user )} name="indent-more" type="foundation"/>
                 </View>
             </Card>

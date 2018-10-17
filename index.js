@@ -9,6 +9,10 @@ import ManageLicense from './component/ManageLicense'
 import ManagePeople from './component/ManagePeople'
 import UserCard from './conteiners/UserCard'
 import UserDetailCard from './conteiners/UserDetailCard'
+import CreateNewContract from './conteiners/CreateNewContract'
+import DetalContract from  './conteiners/DetalContract'
+import ShowAllContractsMembers from './conteiners/ShowAllContractsMembers'
+import AddNewContractMember from './conteiners/AddNewContractMember'
 
 const window = Dimensions.get('window')
 
@@ -26,9 +30,23 @@ const People = createStackNavigator({
         },
         headerTintColor: '#fff'
     }})
+const Contracts = createStackNavigator({
+    ManageContract: {screen: ManageContact},
+    DetalContract: {screen: DetalContract},
+    CreateNewContract: {screen: CreateNewContract},
+    ShowAllContractsMembers: {screen: ShowAllContractsMembers},
+    AddNewContractMember: {screen: AddNewContractMember}
+
+},{
+    navigationOptions:{
+        headerStyle:{
+            backgroundColor: 'black'
+        },
+        headerTintColor: '#fff'
+    }})
 
 const Tabs = createBottomTabNavigator({
-    ManageContact: {screen: ManageContact},
+    ManageContact: {screen: Contracts},
     ManageLicense: {screen: ManageLicense},
     ManagePeople: {screen: People}
     },{tabBarOptions:{
