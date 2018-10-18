@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Tabs from './index'
+import Main from './index'
 
 export default class App extends React.Component {
     state ={
+        isLogin: false,
         user:{
           name: 'Andrey',
             id: 4,
@@ -18,8 +19,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:'Поисковые системы оценивают качество и релевантность статьи по содержащимся в ней словам и словосочетаниям (коллокациям). Чем больше в тексте тематичных ключевых фраз, тем больше шансов, что он получит высокую оценку'
-
+                description:'Поисковые системы оценивают качество и релевантность статьи по содержащимся в ней словам и словосочетаниям (коллокациям). Чем больше в тексте тематичных ключевых фраз, тем больше шансов, что он получит высокую оценку',
+                activeMembers: false
 
             },{
                 name: 'Mari',
@@ -28,7 +29,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 3,
@@ -36,7 +38,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 4,
@@ -44,7 +47,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 5,
@@ -52,7 +56,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 6,
@@ -60,7 +65,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 7,
@@ -68,7 +74,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 8,
@@ -76,7 +83,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 9,
@@ -84,7 +92,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'Gleb',
                 id: 10,
@@ -92,7 +101,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'qwe',
                 id: 11,
@@ -100,7 +110,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: 'qwe',
                 id: 12,
@@ -108,7 +119,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             },{
                 name: '111',
                 id: 13,
@@ -116,7 +128,8 @@ export default class App extends React.Component {
                 activePropject: false,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
                 position: 'CEO',
-                description:''
+                description:'',
+                activeMembers: false
             }
         ],
         contracts: [{
@@ -127,7 +140,7 @@ export default class App extends React.Component {
             description: '',
             startTime: '',
             endTime: '',
-            active: false
+            active: false,
         },
             {
                 name: 'Create second page',
@@ -166,7 +179,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-        <Tabs
+        <Main
           screenProps={{
                 users: this.state.users,
                 user: this.state.user,

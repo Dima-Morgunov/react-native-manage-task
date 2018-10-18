@@ -14,7 +14,16 @@ export default class CreateNewContract extends React.Component {
         secondDateTimePickerVisible: false,
         id:'',
         name: '',
-        members: [],
+        members: [{
+            name: 'Gleb',
+            id: 8,
+            portfolio: [],
+            activePropject: false,
+            avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+            position: 'CEO',
+            description:'',
+            activeMembers: false
+        }],
         image:'',
         description: '',
         startTime: '',
@@ -58,16 +67,15 @@ export default class CreateNewContract extends React.Component {
     addMembers = ( newMember ) =>{
         const newMembersArray = this.state.members.map(a => Object.assign({}, a))
         newMembersArray.push(newMember)
+        console.log(newMember)
         this.setState({
             members: newMembersArray
         })
     }
     showAddMembers = () =>{
-
+        console.log(this.props.screenProps.users.id)
         this.props.navigation.navigate('AddNewContractMember', {addMembers: this.addMembers, members: this.state.members})
-        console.log(this.props.screenProps.users)
     }
-
     createNewContract = () =>{
         const createNewId = this.props.screenProps.contracts[this.props.screenProps.contracts.length -1].id + 1
         const newArrContract = this.props.screenProps.contracts.map(a => Object.assign({}, a));

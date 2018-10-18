@@ -1,9 +1,10 @@
-import { TabNavigator, createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { TabNavigator, createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import {Dimensions} from 'react-native'
 
 import { styles } from './style/styles'
 
 import Login from './component/Login'
+import Registry from './component/Registry'
 import ManageContact from './component/ManageContract'
 import ManageLicense from './component/ManageLicense'
 import ManagePeople from './component/ManagePeople'
@@ -19,6 +20,10 @@ const window = Dimensions.get('window')
 export const IMAGE_HEIGHT = window.width / 2;
 export const IMAGE_HEIGHT_SMALL = window.width /7;
 
+const LoginPage = createStackNavigator({
+    Login: {screen: Login},
+    Registry: {screen: Registry}
+})
 const People = createStackNavigator({
         ManagePeople: {screen: ManagePeople},
         UserCard: {screen: UserCard},
@@ -56,5 +61,9 @@ const Tabs = createBottomTabNavigator({
     inactiveTintColor: 'black',
 }}
 )
+const Main = createSwitchNavigator({
+    login: {screen: LoginPage},
+    MainApp: {screen: Tabs}
+})
 
-export default Tabs
+export default Main
