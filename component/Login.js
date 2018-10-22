@@ -7,14 +7,59 @@ export default class Login extends React.Component {
         header: null
     }
     state ={
-        name: '',
-        password: ''
+        isLogin: false,
+        email: '',
+        password: '',
+        error: {
+            email: '',
+            password: ''
+        },
+        emailValid: false,
+        passwordValid: false,
+        formValid: false,
+        invalidEmailColor: 'white',
+        invalidPasswordColor: 'white'
     }
     onChange = (key, value) =>{
-        this.setState({[key]: value})
+        const keyItem = key
+        const valueItem = value
+        this.setState(
+            {[key]: value},
+            ()=>this.validateField(keyItem, valueItem))
     }
     SubmitUser = () =>{
         this.props.navigation.navigate('MainApp')
+    }
+    validateField(fieldName, value){
+        let fieldvalidationError = this.state.error;
+        let emailValid = this.state.emailValid;
+        let passwordValid = this.state.passwordValid;
+        switch(fieldName){
+            case 'email':
+                emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+                fieldvalidationError.email = emailValid? '': 'Некоректный E-mail';
+                break;
+            case 'password':
+                passwordValid = value.length >= 5;
+                fieldvalidationError.password = passwordValid ? '': 'Телефон должен содержать как минимум 5 цифр';
+                break;
+            default:
+                break
+        }
+        this.setState({
+            error: fieldvalidationError,
+            emailValid: emailValid,
+            passwordValid: passwordValid
+        },this.validateForm);
+
+        this.state.error.email?this.setState({invalidEmailColor: '#ff8c1a'}):this.setState({invalidEmailColor: 'white'})
+        this.state.error.password?this.setState({invalidPasswordColor: '#ff8c1a'}):this.setState({invalidPasswordColor: 'white'})
+    }
+    validateForm(){
+        this.setState({formValid: this.state.emailValid && this.state.passwordValid})
+    }
+    static errorClass(error) {
+        return(error.length === 0 ? '' : 'has-error');
     }
     createAccount = () =>{
         this.props.navigation.navigate('Registry')
@@ -25,7 +70,7 @@ export default class Login extends React.Component {
                 <Image style={styles.image} resizeMode='cover' source={{uri: 'https://randomc.net/image/Mob%20Psycho%20100/Mob%20Psycho%20100%20-%2003%20-%20Large%2002.jpg'}}/>
                 <Text style={styles.textTitle}>Manage your personal is simple</Text>
                 <TextInput
-                    onChangeText={(value) => this.onChange('name', value)}
+                    onChangeText={(value) => this.onChange('email', value)}
                     placeholder='enter your e-mail'
                     placeholderTextColor='black'
                     keyboardType='email-address'
@@ -34,7 +79,7 @@ export default class Login extends React.Component {
                     autoCorrect={false}
                     underlineColorAndroid={0}
                     onSubmitEditing={() => this.passwordInput.focus()}
-                    style={styles.inputStyle}
+                    style={[styles.inputStyle,{borderColor: this.state.invalidEmailColor}]}
                 />
                 <TextInput
                     onChangeText={(value) => this.onChange('password', value)}
@@ -42,7 +87,7 @@ export default class Login extends React.Component {
                     placeholderTextColor='black'
                     underlineColorAndroid={0}
                     returnKeyType='go'
-                    style={styles.inputStyle}
+                    style={[styles.inputStyle,{borderColor: this.state.invalidPasswordColor}]}
                     secureTextEntry
                     onSubmitEditing={() => this.SubmitUser()}
                     ref={(input) => this.passwordInput = input}
@@ -83,6 +128,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#1a8cff',
         borderRadius: 10,
+        borderWidth: 3,
         width: '80%',
         height: 50,
         fontSize:18

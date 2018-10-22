@@ -14,16 +14,83 @@ export default class Registry extends React.Component{
         email: '',
         password: '',
         confirmpass: '',
-        error: ''
+        error: {
+            name: '',
+            email: '',
+            password: '',
+            comfirmpass: ''
+        },
+        nameValid: false,
+        emailValid: false,
+        passwordValid: false,
+        confirmpassValid: false,
+        nameFieldColor: 'white',
+        emailFieldColor: 'white',
+        passwordFieldColor: 'white',
+        confirmpassFieldColor: 'white'
     }
 
     createNewUser = () =>{
-        console.log(this.state)
+        if(this.state.nameValid && this.state.emailValid && this.state.passwordValid && this.state.confirmpassValid){
+
+        }else{
+            this.state.nameValid
+                ? this.setState({nameFieldColor: 'white'})
+                :this.setState({name: this.state.error.name, nameFieldColor: '#ff8c1a', })
+            this.state.emailValid
+                ?this.setState({emailFieldColor: 'white'})
+                :this.setState({emailFieldColor: '#ff8c1a'})
+            this.state.passwordValid
+                ?this.setState({passwordFieldColor: 'white'})
+                :this.setState({passwordFieldColor: '#ff8c1a'})
+            this.state.confirmpassValid
+                ?this.setState({confirmpassFieldColor: 'white'})
+                :this.setState({confirmpassFieldColor: '#ff8c1a'})
+        }
+
     }
     onCange = (key, value) => {
         this.setState({
             [key]: value
-        })
+        },()=>this.validateField(key, value))
+    }
+    validateField(fieldName, value){
+        let fieldvalidationError = this.state.error
+        let nameValid = this.state.nameValid
+        let emailValid = this.state.emailValid
+        let passwordValid = this.state.passwordValid
+        let confirmpassValid = this.state.confirmpassValid
+        switch(fieldName){
+            case 'name':
+                nameValid = value.length >= 2
+                fieldvalidationError.name = nameValid? '' : 'Некоректное имя'
+                break
+            case 'email':
+                emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+                fieldvalidationError.email = emailValid? '': 'Некоректный E-mail'
+                break
+            case 'password':
+                passwordValid = value.length >= 5;
+                fieldvalidationError.password = passwordValid ? '': 'Телефон должен содержать как минимум 5 цифр';
+                break
+            case 'confirmpass':
+                confirmpassValid = this.state.password == this.state.confirmpass
+                fieldvalidationError.comfirmpass = confirmpassValid ? '' : 'пароли не совпадают'
+                break
+            default:
+                break
+        }
+        this.setState({
+            error: fieldvalidationError,
+            nameValid: nameValid,
+            emailValid: emailValid,
+            passwordValid: passwordValid,
+            confirmpassValid: confirmpassValid
+        },this.validateForm);
+
+    }
+    validateForm(){
+        this.setState({formValid: this.state.emailValid && this.state.passwordValid})
     }
 
     render(){
@@ -33,7 +100,7 @@ export default class Registry extends React.Component{
                     <TextInput
                         onChangeText={(value)=>this.onCange('name', value)}
                         placeholder='name'
-                        style={styles.inputStyle}
+                        style={[styles.inputStyle, {borderColor: this.state.nameFieldColor}]}
                         placeholderTextColor='black'
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -49,7 +116,7 @@ export default class Registry extends React.Component{
                         placeholderTextColor='black'
                         keyboardType='email-address'
                         placeholder='e-mail'
-                        style={styles.inputStyle}
+                        style={[styles.inputStyle, {borderColor: this.state.emailFieldColor}]}
                         returnKeyType='next'
                         ref={(input) => this.passwordInput = input}
                         onSubmitEditing={() => this.passwordInput2.focus()}
@@ -60,7 +127,7 @@ export default class Registry extends React.Component{
                         underlineColorAndroid={0}
                         placeholderTextColor='black'
                         placeholder='password'
-                        style={styles.inputStyle}
+                        style={[styles.inputStyle, {borderColor: this.state.passwordFieldColor}]}
                         onSubmitEditing={() => this.passwordInput3.focus()}
                         returnKeyType='next'
                         ref={(input) => this.passwordInput2 = input}
@@ -71,12 +138,12 @@ export default class Registry extends React.Component{
                         underlineColorAndroid={0}
                         placeholderTextColor='black'
                         placeholder='confirm password'
-                        style={styles.inputStyle}
+                        style={[styles.inputStyle, {borderColor: this.state.confirmpassFieldColor}]}
                         returnKeyType='go'
                         ref={(input) => this.passwordInput3 = input}
                         onSubmitEditing={() => this.createNewUser()}
                     />
-                    <TouchableOpacity onPress={()=>this.createNewUser()} style={styles.inputButton}>
+                    <TouchableOpacity onPress={()=>this.createNewUser()} style={[styles.inputButton, {marginBottom: 120}]}>
                         <Text style={{textAlign: 'center', color: 'white', fontSize: 20}}>SING IN</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
@@ -100,6 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginVertical: 10,
         color: '#1a8cff',
+        borderWidth: 3,
         textAlign: 'center',
         borderRadius: 10,
         width: '80%',
